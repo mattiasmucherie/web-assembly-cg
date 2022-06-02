@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <div id="wasm">aasd</div>
+    <div id="vanilla">asdas</div>
+  </body>
+  <script type="module">
+    import { ackermann } from "./build/release.js";
+
+    const test = () => {
+      const wasm = document.getElementById("wasm");
+      const startTime = performance.now();
+      ackermann(3, 1);
+      const endTime = performance.now();
+      console.warn(
+        `Call to ackermann in wasm took ${endTime - startTime} milliseconds`
+      );
+      function factorial2(i) {
+        return i == 0 ? 1 : i * factorial(i - 1);
+      }
+      function calcSinLookup2() {
+        const max = 6283621;
+        const result = new Float64Array(max);
+
+        for (let i = 0; i < max; ++i) {
+          result[i] = Math.sin(i * 0.001);
+        }
+
+        return result;
+      }
+      function ackermann2(m, n) {
+        if (m === 0) {
+          return n + 1;
+        }
+        if (n === 0) {
+          return ackermann2(m - 1, 1);
+        }
+        if (m !== 0 && n !== 0) {
+          return ackermann2(m - 1, ackermann2(m, n - 1));
+        }
+        return 1;
+      }
+      const vanilla = document.getElementById("vanilla");
+      const startTime2 = performance.now();
+      ackermann2(3, 1);
+      const endTime2 = performance.now();
+      console.warn(
+        `Call to ackermann in vanilla took ${
+          endTime2 - startTime2
+        } milliseconds`
+      );
+    };
+    setTimeout(test, 100);
+  </script>
+  <script></script>
+</html>
