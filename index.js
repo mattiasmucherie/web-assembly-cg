@@ -1,22 +1,14 @@
 const fs = require("fs");
-const loader = require("@assemblyscript/loader");
-
-function importCallback(a, b) {
-  return a + b;
-}
-
+const compiled = new WebAssembly.Module(
+  fs.readFileSync(__dirname + "/build/release.wasm")
+);
 const imports = {
-  test: {
-    importCallback,
+  env: {
+    abort(_msg, _file, line, column) {
+      console.error("abort called at index.ts:" + line + ":" + column);
+    },
   },
 };
-
-const wasmModule = loader.instantiateSync(
-  fs.readFileSync(__dirname + "/build/release.wasm"),
-  imports
-);
-
-module.exports = {
-  ...wasmModule.exports,
-  importCallback,
-};
+Object.defineProperty(module, "exports", {
+  get: () => new WebAssembly.Instance(compiled, imports).exports,
+});

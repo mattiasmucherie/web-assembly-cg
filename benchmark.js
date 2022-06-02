@@ -18,6 +18,10 @@ function runSuite(suite) {
       );
     })
     .run();
+  const result = document.querySelector("#result");
+  result.innerHTML = `${fastest.map("name")} is ~${difference.toFixed(
+    1
+  )}% faster.`;
 }
 
 function addTest() {
@@ -121,7 +125,7 @@ function calcPrimesTest() {
   runSuite(test);
 }
 
-addTest();
-factorialTest();
+// addTest();
+// factorialTest();
 ackermannTest();
-calcPrimesTest();
+// calcPrimesTest();
