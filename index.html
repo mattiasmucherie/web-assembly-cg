@@ -11,7 +11,7 @@
     const test = () => {
       const wasm = document.getElementById("wasm");
       const startTime = performance.now();
-      ackermann(3, 1);
+      ackermann(3, 10);
       const endTime = performance.now();
       console.warn(
         `Call to ackermann in wasm took ${endTime - startTime} milliseconds`
@@ -43,7 +43,7 @@
       }
       const vanilla = document.getElementById("vanilla");
       const startTime2 = performance.now();
-      ackermann2(3, 1);
+      ackermann2(3, 10);
       const endTime2 = performance.now();
       console.warn(
         `Call to ackermann in vanilla took ${

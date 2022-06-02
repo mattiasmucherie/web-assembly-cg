@@ -1,5 +1,7 @@
 // The entry file of your WebAssembly module.
-type Ackermann = (m: i32, n: i32) => i32;
+export function add(a: i32, b: i32): i32 {
+  return a + b;
+}
 
 export function ackermann(m: i32, n: i32): i32 {
   if (m === 0) {
@@ -26,4 +28,18 @@ export function calcSinLookup(): Float64Array {
   }
 
   return result;
+}
+
+export function isPrime(x: u32): bool {
+  if (x < 2) {
+    return false;
+  }
+
+  for (let i: u32 = 2; i < x; i++) {
+    if (x % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
 }
